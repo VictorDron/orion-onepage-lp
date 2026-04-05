@@ -3,37 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Orion Studio — V2 Premium</title>
+  <title>Orion Studio — V3 Immersive</title>
   <style>
     :root {
-      --bg: #060b14;
-      --bg-2: #0a1220;
-      --surface: rgba(255,255,255,0.06);
-      --surface-2: rgba(255,255,255,0.04);
-      --stroke: rgba(255,255,255,0.09);
-      --text: #f4f8ff;
-      --muted: #97a8c3;
-      --primary: #5eead4;
-      --primary-2: #38bdf8;
+      --bg: #04070d;
+      --bg-2: #07111b;
+      --surface: rgba(255,255,255,0.05);
+      --surface-2: rgba(255,255,255,0.035);
+      --stroke: rgba(255,255,255,0.08);
+      --text: #f3f8ff;
+      --muted: #8ea0bb;
+      --primary: #67e8f9;
+      --secondary: #60a5fa;
       --accent: #8b5cf6;
       --success: #34d399;
-      --danger: #fb7185;
+      --shadow: 0 24px 60px rgba(0,0,0,.35);
       --radius-xl: 28px;
       --radius-lg: 22px;
-      --shadow: 0 30px 80px rgba(0,0,0,.35);
       --container: min(1200px, calc(100% - 32px));
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 10% 10%, rgba(56,189,248,.13), transparent 26%),
-        radial-gradient(circle at 85% 15%, rgba(139,92,246,.14), transparent 24%),
-        radial-gradient(circle at 50% 100%, rgba(94,234,212,.08), transparent 28%),
-        linear-gradient(180deg, #060b14 0%, #07111d 28%, #091320 60%, #07111a 100%);
+        radial-gradient(circle at top left, rgba(103,232,249,.08), transparent 26%),
+        radial-gradient(circle at top right, rgba(139,92,246,.10), transparent 22%),
+        linear-gradient(180deg, #04070d 0%, #07111b 48%, #050a12 100%);
       line-height: 1.6;
       overflow-x: hidden;
     }
@@ -43,29 +41,27 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image: linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
-      background-size: 36px 36px;
-      mask-image: radial-gradient(circle at center, black 35%, transparent 85%);
-      opacity: .35;
+      background: radial-gradient(circle at center, transparent 0%, rgba(4,7,13,0.08) 60%, rgba(4,7,13,0.55) 100%);
+      z-index: 1;
     }
 
     a { color: inherit; text-decoration: none; }
-    .container { width: var(--container); margin: 0 auto; }
+    .container { width: var(--container); margin: 0 auto; position: relative; z-index: 3; }
 
     .nav {
       position: sticky;
       top: 0;
-      z-index: 30;
+      z-index: 50;
       backdrop-filter: blur(16px);
-      background: rgba(6,11,20,.62);
+      background: rgba(4,7,13,.55);
       border-bottom: 1px solid rgba(255,255,255,.05);
     }
 
     .nav-inner {
+      min-height: 78px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      min-height: 78px;
       gap: 20px;
     }
 
@@ -80,13 +76,13 @@
     .brand-mark {
       width: 42px;
       height: 42px;
+      border-radius: 14px;
       display: grid;
       place-items: center;
-      border-radius: 14px;
       color: #031019;
-      background: linear-gradient(135deg, var(--primary), var(--primary-2), var(--accent));
-      box-shadow: 0 16px 34px rgba(56,189,248,.22);
       font-weight: 900;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      box-shadow: 0 16px 34px rgba(96,165,250,.22);
     }
 
     .nav-links {
@@ -102,38 +98,61 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      border: none;
-      border-radius: 999px;
       padding: 14px 22px;
+      border-radius: 999px;
       font-weight: 800;
+      border: 0;
       cursor: pointer;
       transition: .25s ease;
     }
 
     .btn-primary {
-      color: #041019;
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      box-shadow: 0 18px 40px rgba(56,189,248,.22);
+      color: #031019;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 18px 40px rgba(96,165,250,.25);
     }
 
-    .btn-primary:hover,
-    .btn-outline:hover,
-    .mini-btn:hover { transform: translateY(-2px); }
-
-    .btn-outline {
-      background: rgba(255,255,255,.05);
+    .btn-secondary {
       color: var(--text);
-      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
     }
+
+    .btn:hover { transform: translateY(-2px); }
 
     .hero {
-      padding: 72px 0 42px;
+      position: relative;
+      min-height: calc(100vh - 78px);
+      display: flex;
+      align-items: center;
+      padding: 52px 0 60px;
+      overflow: hidden;
     }
 
-    .hero-wrap {
+    #bg-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: .95;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        radial-gradient(circle at center, transparent 0%, rgba(4,7,13,.18) 45%, rgba(4,7,13,.82) 100%),
+        linear-gradient(90deg, rgba(4,7,13,.88) 0%, rgba(4,7,13,.46) 44%, rgba(4,7,13,.80) 100%);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 3;
       display: grid;
-      grid-template-columns: 1.08fr .92fr;
-      gap: 30px;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 28px;
       align-items: center;
     }
 
@@ -141,36 +160,37 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      border-radius: 999px;
       padding: 8px 14px;
+      border-radius: 999px;
       margin-bottom: 18px;
       font-size: 14px;
       font-weight: 700;
       color: var(--primary);
-      background: rgba(94,234,212,.08);
-      border: 1px solid rgba(94,234,212,.15);
+      background: rgba(103,232,249,.08);
+      border: 1px solid rgba(103,232,249,.15);
+      backdrop-filter: blur(12px);
     }
 
-    .eyebrow .dot {
+    .eyebrow .pulse {
       width: 8px;
       height: 8px;
       border-radius: 50%;
       background: var(--success);
-      box-shadow: 0 0 14px var(--success);
+      box-shadow: 0 0 18px var(--success);
     }
 
     h1 {
-      font-size: clamp(2.6rem, 5vw, 5.2rem);
-      line-height: .97;
-      letter-spacing: -.05em;
+      font-size: clamp(2.8rem, 5vw, 5.8rem);
+      line-height: .95;
+      letter-spacing: -.06em;
       margin-bottom: 18px;
-      max-width: 11ch;
+      max-width: 12ch;
     }
 
     .lead {
-      max-width: 60ch;
-      font-size: clamp(1rem, 1.7vw, 1.16rem);
+      max-width: 62ch;
       color: var(--muted);
+      font-size: clamp(1rem, 1.7vw, 1.16rem);
       margin-bottom: 28px;
     }
 
@@ -178,151 +198,144 @@
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 32px;
+      margin-bottom: 30px;
     }
 
-    .brand-row {
+    .signal-row {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      color: #c9d7ea;
     }
 
-    .brand-chip {
+    .signal {
       padding: 10px 14px;
       border-radius: 999px;
+      backdrop-filter: blur(10px);
       background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.07);
+      color: #d4e2f5;
       font-size: 13px;
     }
 
     .glass {
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.035));
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       border: 1px solid rgba(255,255,255,.08);
-      border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
+      border-radius: var(--radius-xl);
+      backdrop-filter: blur(16px);
     }
 
     .hero-panel {
       padding: 22px;
-      position: relative;
-      overflow: hidden;
+      justify-self: end;
+      width: min(100%, 500px);
     }
 
-    .hero-panel::after {
-      content: "";
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      right: -40px;
-      top: -40px;
-      background: radial-gradient(circle, rgba(94,234,212,.2), transparent 60%);
-      filter: blur(10px);
-      pointer-events: none;
-    }
-
-    .panel-head {
+    .panel-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
       color: var(--muted);
       font-size: 14px;
+      margin-bottom: 16px;
     }
 
-    .panel-window {
-      display: flex;
-      gap: 7px;
-    }
-
-    .panel-window span {
+    .dots { display: flex; gap: 7px; }
+    .dots span {
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: rgba(255,255,255,.24);
+      background: rgba(255,255,255,.25);
     }
 
-    .hero-card {
-      padding: 22px;
+    .scan {
+      height: 220px;
       border-radius: 24px;
-      background: rgba(255,255,255,.04);
+      overflow: hidden;
+      position: relative;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(103,232,249,.10), transparent 22%),
+        radial-gradient(circle at 80% 20%, rgba(139,92,246,.14), transparent 20%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
       border: 1px solid rgba(255,255,255,.07);
-      margin-bottom: 18px;
-    }
-
-    .hero-card h3 { margin-bottom: 10px; }
-    .hero-card p { color: var(--muted); }
-
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
       margin-bottom: 16px;
     }
 
-    .metric {
-      padding: 18px;
-      border-radius: 20px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.07);
+    .scan::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(180deg, transparent 0 18px, rgba(255,255,255,.035) 18px 19px);
+      opacity: .6;
     }
 
-    .metric span {
-      display: block;
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 6px;
+    .scan-line {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      box-shadow: 0 0 20px rgba(103,232,249,.9);
+      animation: sweep 3.8s linear infinite;
     }
 
-    .metric strong {
-      font-size: 1.55rem;
-      letter-spacing: -.03em;
+    @keyframes sweep {
+      0% { transform: translateY(-220px); }
+      100% { transform: translateY(220px); }
     }
 
-    .pipeline {
+    .orb {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle at 35% 35%, rgba(255,255,255,.8), rgba(103,232,249,.25) 28%, rgba(139,92,246,.18) 62%, transparent 72%);
+      filter: blur(0.2px);
+      box-shadow: 0 0 40px rgba(96,165,250,.18);
+    }
+
+    .ring,
+    .ring-2 {
+      position: absolute;
+      border: 1px solid rgba(103,232,249,.18);
+      border-radius: 50%;
+      inset: 50% auto auto 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .ring { width: 220px; height: 220px; }
+    .ring-2 { width: 290px; height: 290px; border-color: rgba(139,92,246,.12); }
+
+    .stats {
       display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
     }
 
-    .pipe {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 16px;
+    .stat {
+      padding: 16px;
       border-radius: 18px;
       background: rgba(255,255,255,.04);
       border: 1px solid rgba(255,255,255,.06);
     }
 
-    .pipe-label {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 700;
+    .stat span {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
     }
 
-    .pipe-bullet {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      box-shadow: 0 0 16px rgba(94,234,212,.5);
-    }
-
-    .mini-btn {
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.05);
-      color: var(--text);
-      font-weight: 700;
-      cursor: pointer;
-      transition: .2s ease;
+    .stat strong {
+      font-size: 1.2rem;
+      letter-spacing: -.03em;
     }
 
     .section {
       padding: 92px 0;
+      position: relative;
+      z-index: 3;
     }
 
     .section-head {
@@ -332,14 +345,12 @@
     }
 
     .section-head h2 {
-      font-size: clamp(1.9rem, 3vw, 3.3rem);
+      font-size: clamp(1.9rem, 3vw, 3.4rem);
       margin-bottom: 12px;
-      letter-spacing: -.03em;
+      letter-spacing: -.04em;
     }
 
-    .section-head p {
-      color: var(--muted);
-    }
+    .section-head p { color: var(--muted); }
 
     .grid-3 {
       display: grid;
@@ -351,41 +362,34 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
-      align-items: stretch;
     }
 
-    .box { padding: 28px; }
+    .card { padding: 28px; }
 
-    .service-card .index {
-      display: inline-flex;
-      width: 42px;
-      height: 42px;
-      align-items: center;
-      justify-content: center;
-      border-radius: 14px;
+    .feature .top {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
       margin-bottom: 16px;
-      background: linear-gradient(135deg, rgba(94,234,212,.18), rgba(56,189,248,.18));
-      color: var(--primary);
-      font-weight: 800;
+      background: linear-gradient(135deg, rgba(103,232,249,.16), rgba(96,165,250,.16));
+      font-size: 22px;
     }
 
-    .service-card h3,
-    .box h3,
-    .testimonial h3,
-    .pricing h3 { margin-bottom: 10px; }
-
-    .service-card p,
-    .box p,
-    .testimonial p,
-    .pricing p,
-    .list li,
-    .faq-item p { color: var(--muted); }
+    .feature h3,
+    .card h3,
+    .faq-item strong { margin-bottom: 10px; }
+    .feature p,
+    .card p,
+    .faq-item p,
+    .list li { color: var(--muted); }
 
     .list {
       list-style: none;
+      margin-top: 18px;
       display: grid;
       gap: 12px;
-      margin-top: 18px;
     }
 
     .list li {
@@ -402,77 +406,21 @@
       margin-top: 2px;
     }
 
-    .testimonial-wrap {
-      display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 24px;
-    }
-
-    .testimonial {
-      padding: 30px;
-      position: relative;
-    }
-
-    .quote-mark {
-      font-size: 4.2rem;
-      line-height: 1;
-      color: rgba(94,234,212,.24);
-      margin-bottom: 10px;
-    }
-
-    .author {
-      margin-top: 18px;
-      color: #d7e6fa;
-      font-weight: 700;
-    }
-
-    .score-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+    .quote {
+      font-size: 1.14rem;
+      color: #dbe9fa;
       margin-top: 16px;
-    }
-
-    .score {
       padding: 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.04);
+      border-radius: 20px;
+      background: rgba(255,255,255,.03);
       border: 1px solid rgba(255,255,255,.06);
     }
 
-    .score span {
-      display: block;
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 5px;
-    }
-
-    .score strong {
-      font-size: 1.6rem;
-    }
-
-    .pricing {
-      padding: 30px;
-    }
-
-    .price-tag {
-      font-size: 2.7rem;
-      line-height: 1;
-      margin: 16px 0;
-      letter-spacing: -.05em;
-    }
-
-    .price-tag small {
-      font-size: 1rem;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
     .faq {
+      max-width: 900px;
+      margin: 0 auto;
       display: grid;
       gap: 14px;
-      max-width: 860px;
-      margin: 0 auto;
     }
 
     .faq-item {
@@ -487,38 +435,36 @@
       align-items: center;
     }
 
-    .faq-top strong {
-      font-size: 1rem;
-    }
-
     .faq-item p {
       max-height: 0;
       overflow: hidden;
-      transition: max-height .28s ease, margin-top .28s ease;
+      transition: max-height .3s ease, margin-top .3s ease;
       margin-top: 0;
     }
 
     .faq-item.active p {
-      max-height: 160px;
+      max-height: 180px;
       margin-top: 12px;
     }
 
     .cta {
       text-align: center;
-      padding: 38px;
+      padding: 40px;
     }
 
     .cta p {
       color: var(--muted);
-      max-width: 680px;
       margin: 12px auto 22px;
+      max-width: 680px;
     }
 
     .footer {
-      padding: 26px 0 42px;
+      padding: 28px 0 44px;
       text-align: center;
       color: var(--muted);
       font-size: 14px;
+      position: relative;
+      z-index: 3;
     }
 
     .reveal {
@@ -533,22 +479,18 @@
     }
 
     @media (max-width: 1024px) {
-      .hero-wrap,
+      .hero-grid,
       .grid-3,
-      .grid-2,
-      .testimonial-wrap {
-        grid-template-columns: 1fr;
-      }
-
+      .grid-2 { grid-template-columns: 1fr; }
+      .hero-panel { justify-self: stretch; width: 100%; }
       .nav-links a:not(.btn) { display: none; }
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 680px) {
       h1 { max-width: 100%; }
       .hero-actions,
-      .brand-row { flex-direction: column; align-items: stretch; }
-      .metrics,
-      .score-grid { grid-template-columns: 1fr; }
+      .signal-row { flex-direction: column; align-items: stretch; }
+      .stats { grid-template-columns: 1fr; }
       .btn { width: 100%; }
     }
   </style>
@@ -561,294 +503,337 @@
         <span>Orion Studio</span>
       </a>
       <div class="nav-links">
-        <a href="#services">Serviços</a>
-        <a href="#results">Resultados</a>
+        <a href="#features">Diferenciais</a>
+        <a href="#structure">Estrutura</a>
         <a href="#faq">FAQ</a>
-        <a href="#cta" class="btn btn-primary">Quero esse nível</a>
+        <a href="#cta" class="btn btn-primary">Quero essa vibe</a>
       </div>
     </div>
   </nav>
 
-  <main id="top">
-    <section class="hero">
-      <div class="container hero-wrap">
-        <div class="reveal show">
-          <span class="eyebrow"><span class="dot"></span> Estrutura premium para páginas de alta percepção</span>
-          <h1>Sites e landing pages com cara de empresa grande.</h1>
-          <p class="lead">
-            Design elegante, copy mais afiada e composição visual com pegada de software house moderna.
-            Uma V2 mais forte, mais limpa e com presença muito mais profissional.
-          </p>
-          <div class="hero-actions">
-            <a href="#cta" class="btn btn-primary">Solicitar projeto</a>
-            <a href="#services" class="btn btn-outline">Explorar a estrutura</a>
-          </div>
-          <div class="brand-row">
-            <span class="brand-chip">Landing pages premium</span>
-            <span class="brand-chip">Sites institucionais modernos</span>
-            <span class="brand-chip">Páginas para oferta e conversão</span>
-          </div>
+  <section class="hero" id="top">
+    <canvas id="bg-canvas"></canvas>
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-grid">
+      <div class="reveal show">
+        <span class="eyebrow"><span class="pulse"></span> Three.js no hero • direção mais autoral</span>
+        <h1>Não é só uma landing page. É presença.</h1>
+        <p class="lead">
+          Uma versão mais imersiva, mais forte e com assinatura visual real. Three.js no hero para criar profundidade,
+          movimento e sensação de marca tech premium sem cair no genérico.
+        </p>
+        <div class="hero-actions">
+          <a href="#cta" class="btn btn-primary">Quero um projeto assim</a>
+          <a href="#features" class="btn btn-secondary">Ver diferenciais</a>
         </div>
+        <div class="signal-row">
+          <span class="signal">Hero imersivo</span>
+          <span class="signal">Direção visual autoral</span>
+          <span class="signal">Experiência mais memorável</span>
+        </div>
+      </div>
 
-        <div class="hero-panel glass reveal">
-          <div class="panel-head">
-            <div class="panel-window"><span></span><span></span><span></span></div>
-            <span>operation dashboard</span>
+      <div class="hero-panel glass reveal">
+        <div class="panel-top">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <span>visual response layer</span>
+        </div>
+        <div class="scan">
+          <div class="ring"></div>
+          <div class="ring-2"></div>
+          <div class="orb"></div>
+          <div class="scan-line"></div>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <span>Impacto visual</span>
+            <strong id="statA">alto</strong>
           </div>
-
-          <div class="hero-card">
-            <h3>Interface de alto valor percebido</h3>
-            <p>
-              Blocos bem respirados, boa hierarquia, headline forte e sensação de produto premium já na primeira dobra.
-            </p>
+          <div class="stat">
+            <span>Memorável</span>
+            <strong id="statB">sim</strong>
           </div>
-
-          <div class="metrics">
-            <div class="metric">
-              <span>Tempo médio de atenção</span>
-              <strong id="metricA">11s</strong>
-            </div>
-            <div class="metric">
-              <span>Leads qualificados</span>
-              <strong id="metricB">+42%</strong>
-            </div>
-          </div>
-
-          <div class="pipeline">
-            <div class="pipe">
-              <div class="pipe-label"><span class="pipe-bullet"></span> Diagnóstico visual</div>
-              <button class="mini-btn">Concluído</button>
-            </div>
-            <div class="pipe">
-              <div class="pipe-label"><span class="pipe-bullet"></span> Copy estratégica</div>
-              <button class="mini-btn">Ativo</button>
-            </div>
-            <div class="pipe">
-              <div class="pipe-label"><span class="pipe-bullet"></span> Estrutura de conversão</div>
-              <button class="mini-btn">Pronto</button>
-            </div>
+          <div class="stat">
+            <span>Energia</span>
+            <strong id="statC">premium</strong>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="services" class="section">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2>Uma página mais séria, mais limpa e mais convincente</h2>
-          <p>
-            Inspirada no tipo de presença visual que passa confiança logo de cara, sem virar cópia literal de ninguém.
-          </p>
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Agora sim saiu do “bonito genérico”</h2>
+        <p>
+          A diferença aqui não é só estética. É a sensação de identidade, presença e direção visual mais ousada.
+        </p>
+      </div>
+      <div class="grid-3">
+        <article class="card glass feature reveal">
+          <div class="top">✦</div>
+          <h3>Hero 3D vivo</h3>
+          <p>O Three.js traz movimento e profundidade logo na primeira dobra, com mais assinatura visual.</p>
+        </article>
+        <article class="card glass feature reveal">
+          <div class="top">◉</div>
+          <h3>Clima tech premium</h3>
+          <p>Mais sensação de produto, inovação e alto valor percebido, sem parecer template comum.</p>
+        </article>
+        <article class="card glass feature reveal">
+          <div class="top">⚡</div>
+          <h3>Mais presença</h3>
+          <p>Uma página que chama mais atenção, prende mais o olhar e tem mais chance de ser lembrada.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="structure">
+    <div class="container grid-2">
+      <div class="card glass reveal">
+        <h3>O que mudou de verdade</h3>
+        <p>
+          Em vez de só empilhar cards premium, a página ganhou uma camada de experiência. O hero agora cria atmosfera,
+          e o restante sustenta essa promessa com uma estrutura mais limpa.
+        </p>
+        <ul class="list">
+          <li>Menos cara de template</li>
+          <li>Mais sensação de marca autoral</li>
+          <li>Visual mais próximo de produto high-end</li>
+          <li>Melhor ponto de partida para nicho tech</li>
+        </ul>
+      </div>
+      <div class="card glass reveal">
+        <h3>Onde isso encaixa muito bem</h3>
+        <p>
+          Essa abordagem funciona especialmente bem para software house, IA, automação, SaaS, tecnologia e qualquer oferta que precise parecer mais avançada.
+        </p>
+        <div class="quote" id="quoteBox">
+          “Quando a página parece mais viva, a marca parece mais séria — desde que o resto acompanhe.”
         </div>
-
-        <div class="grid-3">
-          <article class="box glass service-card reveal">
-            <span class="index">01</span>
-            <h3>Hero mais impactante</h3>
-            <p>Headline maior, melhor distribuição visual e call to action com mais presença.</p>
-          </article>
-          <article class="box glass service-card reveal">
-            <span class="index">02</span>
-            <h3>Blocos com cara premium</h3>
-            <p>Cards translúcidos, respiro melhor e composição mais corporativa e moderna.</p>
-          </article>
-          <article class="box glass service-card reveal">
-            <span class="index">03</span>
-            <h3>Interação sutil</h3>
-            <p>Pequenos efeitos e dinâmicas para deixar a experiência mais viva sem exagero.</p>
-          </article>
+        <div style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap;">
+          <button class="btn btn-primary" id="changeQuote">Trocar insight</button>
+          <button class="btn btn-secondary" id="noteBtn">Ver nota</button>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="results" class="section">
-      <div class="container grid-2">
-        <div class="box glass reveal">
-          <h3>O que essa V2 melhora</h3>
-          <p>
-            Ela sai de uma LP “bonita” para uma LP com mais aparência de projeto comercial sério. O ganho está menos no efeito e mais na percepção de valor.
-          </p>
-          <ul class="list">
-            <li>Mais autoridade na primeira impressão</li>
-            <li>Melhor equilíbrio entre visual e copy</li>
-            <li>Cara de solução premium, não de template comum</li>
-            <li>Mais fácil de adaptar para software house, agência, SaaS ou consultoria</li>
-          </ul>
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Perguntas importantes</h2>
+        <p>Porque uma experiência forte também precisa continuar prática.</p>
+      </div>
+      <div class="faq">
+        <div class="faq-item glass reveal active">
+          <div class="faq-top">
+            <strong>Three.js deixa o site pesado?</strong>
+            <span>+</span>
+          </div>
+          <p>Se for bem usado, não precisa deixar. A ideia é usar o 3D com inteligência, no hero, com cena leve e sem transformar a LP inteira em showroom de efeito.</p>
         </div>
-        <div class="box glass reveal">
-          <h3>Ideal para</h3>
-          <p>
-            Empresas que querem se posicionar melhor no digital, vender serviço com mais confiança e parecer mais organizadas sem precisar de uma aplicação inteira.
-          </p>
-          <ul class="list">
-            <li>Software house</li>
-            <li>Agência criativa ou performance</li>
-            <li>Consultoria tech</li>
-            <li>Produto digital / SaaS</li>
-          </ul>
+        <div class="faq-item glass reveal">
+          <div class="faq-top">
+            <strong>Dá para adaptar essa base para um nicho real?</strong>
+            <span>+</span>
+          </div>
+          <p>Sim. Essa V3 é uma base mais autoral para virar página de software house, IA, automação, produto digital ou serviço premium.</p>
+        </div>
+        <div class="faq-item glass reveal">
+          <div class="faq-top">
+            <strong>Ela ainda continua simples de publicar?</strong>
+            <span>+</span>
+          </div>
+          <p>Sim. Continua sendo um arquivo único, publicado no GitHub Pages, com a biblioteca puxada por CDN.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section">
-      <div class="container testimonial-wrap">
-        <div class="testimonial glass reveal">
-          <div class="quote-mark">“</div>
-          <h3 id="quoteTitle">Percepção de valor vem do conjunto</h3>
-          <p id="quoteText">
-            Não é só usar gradiente bonito. O que faz uma página parecer forte é a soma entre direção visual, copy boa, hierarquia clara e sensação de organização.
-          </p>
-          <div class="author" id="quoteAuthor">Orion Studio • direção criativa</div>
-          <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
-            <button class="btn btn-primary" id="changeQuote">Trocar insight</button>
-            <button class="btn btn-outline" id="alertBtn">Ver observação</button>
-          </div>
-        </div>
-
-        <div class="pricing glass reveal">
-          <h3>Pack de entrega</h3>
-          <p>Um exemplo de como você pode empacotar esse tipo de projeto.</p>
-          <div class="price-tag">Single File <small>HTML + CSS + JS</small></div>
-          <div class="score-grid">
-            <div class="score">
-              <span>Publicação</span>
-              <strong>rápida</strong>
-            </div>
-            <div class="score">
-              <span>Visual</span>
-              <strong>premium</strong>
-            </div>
-            <div class="score">
-              <span>Estrutura</span>
-              <strong>modular</strong>
-            </div>
-            <div class="score">
-              <span>Manutenção</span>
-              <strong>simples</strong>
-            </div>
-          </div>
-        </div>
+  <section class="section" id="cta">
+    <div class="container">
+      <div class="cta glass reveal">
+        <h2>Agora sim dá para chamar isso de V3.</h2>
+        <p>
+          Se quiser, o próximo passo é nichar isso de verdade: software house, agência de IA, automação empresarial, SaaS ou qualquer proposta que peça uma presença mais avançada.
+        </p>
+        <a href="javascript:void(0)" class="btn btn-primary" id="finalBtn">Quero a versão nichada</a>
       </div>
-    </section>
-
-    <section id="faq" class="section">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2>Perguntas que costumam aparecer</h2>
-          <p>Uma LP boa também ajuda a responder objeções com clareza.</p>
-        </div>
-
-        <div class="faq">
-          <div class="faq-item glass reveal active">
-            <div class="faq-top">
-              <strong>Essa página pode virar projeto real para cliente?</strong>
-              <span>+</span>
-            </div>
-            <p>Sim. A estrutura está pronta para ser adaptada para agência, software house, consultoria, produto digital ou página de oferta.</p>
-          </div>
-          <div class="faq-item glass reveal">
-            <div class="faq-top">
-              <strong>Dá para publicar fácil?</strong>
-              <span>+</span>
-            </div>
-            <p>Dá. Por ser um arquivo único, é muito simples publicar em GitHub Pages, Netlify, Vercel ou hospedagem estática comum.</p>
-          </div>
-          <div class="faq-item glass reveal">
-            <div class="faq-top">
-              <strong>Posso incluir WhatsApp, formulário e CTA real?</strong>
-              <span>+</span>
-            </div>
-            <p>Sim. Essa base foi pensada justamente para receber CTA real, link de WhatsApp, formulário e integrações simples depois.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="cta" class="section">
-      <div class="container">
-        <div class="cta glass reveal">
-          <h2>Se quiser, eu ainda deixo essa V2 mais agressiva para conversão.</h2>
-          <p>
-            Dá para transformar isso numa LP para agência, produto, software house, barbearia premium, clínica, SaaS ou captação de leads com WhatsApp.
-          </p>
-          <a href="javascript:void(0)" class="btn btn-primary" id="finalBtn">Quero a V3</a>
-        </div>
-      </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
   <footer class="footer">
-    <div class="container">Orion Studio • V2 premium single-file • pronta para GitHub Pages</div>
+    <div class="container">Orion Studio • V3 immersive • single-file + Three.js</div>
   </footer>
 
-  <script>
-    const metricA = document.getElementById('metricA');
-    const metricB = document.getElementById('metricB');
-    const quoteTitle = document.getElementById('quoteTitle');
-    const quoteText = document.getElementById('quoteText');
-    const quoteAuthor = document.getElementById('quoteAuthor');
-    const changeQuote = document.getElementById('changeQuote');
-    const alertBtn = document.getElementById('alertBtn');
-    const finalBtn = document.getElementById('finalBtn');
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.164.1/build/three.module.js';
 
-    const insights = [
-      {
-        title: 'Percepção de valor vem do conjunto',
-        text: 'Não é só usar gradiente bonito. O que faz uma página parecer forte é a soma entre direção visual, copy boa, hierarquia clara e sensação de organização.',
-        author: 'Orion Studio • direção criativa'
-      },
-      {
-        title: 'Autoridade visual reduz fricção',
-        text: 'Quando a página passa profissionalismo logo de cara, o visitante perde menos tempo tentando decidir se confia ou não em quem está por trás.',
-        author: 'Orion Studio • leitura de conversão'
-      },
-      {
-        title: 'Página premium vende contexto',
-        text: 'Ela não empurra só uma oferta. Ela vende a sensação de estrutura, competência e nível de execução por trás daquela marca.',
-        author: 'Orion Studio • composição estratégica'
-      }
-    ];
+    const canvas = document.getElementById('bg-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(52, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 0, 8);
 
-    let insightIndex = 0;
-    changeQuote.addEventListener('click', () => {
-      insightIndex = (insightIndex + 1) % insights.length;
-      const next = insights[insightIndex];
-      quoteTitle.textContent = next.title;
-      quoteText.textContent = next.text;
-      quoteAuthor.textContent = next.author;
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    const particlesCount = 1600;
+    const positions = new Float32Array(particlesCount * 3);
+    for (let i = 0; i < particlesCount; i++) {
+      const i3 = i * 3;
+      const radius = 2.2 + Math.random() * 2.8;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos((Math.random() * 2) - 1);
+      positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
+      positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      positions[i3 + 2] = radius * Math.cos(phi);
+    }
+
+    const particlesGeometry = new THREE.BufferGeometry();
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    const particlesMaterial = new THREE.PointsMaterial({
+      color: 0x67e8f9,
+      size: 0.03,
+      transparent: true,
+      opacity: 0.8,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
     });
 
-    alertBtn.addEventListener('click', () => {
-      alert('Essa V2 foi redesenhada para ficar mais premium e mais próxima da sensação visual de uma software house moderna, sem copiar literalmente outra página.');
+    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+    group.add(particles);
+
+    const wireGeometry = new THREE.IcosahedronGeometry(1.8, 1);
+    const wireMaterial = new THREE.MeshBasicMaterial({
+      color: 0x60a5fa,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.22
+    });
+    const wireSphere = new THREE.Mesh(wireGeometry, wireMaterial);
+    group.add(wireSphere);
+
+    const coreGeometry = new THREE.IcosahedronGeometry(1.05, 4);
+    const coreMaterial = new THREE.MeshPhongMaterial({
+      color: 0x7dd3fc,
+      emissive: 0x3b82f6,
+      emissiveIntensity: 0.55,
+      shininess: 100,
+      transparent: true,
+      opacity: 0.95,
+      flatShading: true
+    });
+    const core = new THREE.Mesh(coreGeometry, coreMaterial);
+    group.add(core);
+
+    const ringGeometry = new THREE.TorusGeometry(2.6, 0.015, 16, 180);
+    const ringMaterial = new THREE.MeshBasicMaterial({
+      color: 0x8b5cf6,
+      transparent: true,
+      opacity: 0.4
+    });
+    const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+    ring.rotation.x = Math.PI / 2.7;
+    group.add(ring);
+
+    const ambient = new THREE.AmbientLight(0xffffff, 0.65);
+    scene.add(ambient);
+
+    const point = new THREE.PointLight(0x67e8f9, 2.2, 30);
+    point.position.set(4, 3, 6);
+    scene.add(point);
+
+    const point2 = new THREE.PointLight(0x8b5cf6, 1.6, 20);
+    point2.position.set(-4, -2, 4);
+    scene.add(point2);
+
+    const mouse = { x: 0, y: 0 };
+    window.addEventListener('pointermove', (e) => {
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const t = performance.now() * 0.001;
+      group.rotation.y += 0.0018;
+      group.rotation.x += 0.0007;
+      wireSphere.rotation.y -= 0.0024;
+      core.rotation.y += 0.003;
+      core.rotation.x = Math.sin(t * 0.8) * 0.2;
+      ring.rotation.z += 0.0035;
+
+      group.position.x += ((mouse.x * 0.7) - group.position.x) * 0.03;
+      group.position.y += ((mouse.y * 0.4) - group.position.y) * 0.03;
+
+      particlesMaterial.opacity = 0.62 + Math.sin(t * 1.6) * 0.12;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    const quotes = [
+      '“Quando a página parece mais viva, a marca parece mais séria — desde que o resto acompanhe.”',
+      '“Movimento bom não distrai. Ele conduz o olhar e aumenta a percepção de nível.”',
+      '“Three.js aqui não entra como firula. Entra como assinatura visual.”'
+    ];
+
+    const quoteBox = document.getElementById('quoteBox');
+    const changeQuote = document.getElementById('changeQuote');
+    const noteBtn = document.getElementById('noteBtn');
+    const finalBtn = document.getElementById('finalBtn');
+    const statA = document.getElementById('statA');
+    const statB = document.getElementById('statB');
+    const statC = document.getElementById('statC');
+
+    let q = 0;
+    changeQuote.addEventListener('click', () => {
+      q = (q + 1) % quotes.length;
+      quoteBox.textContent = quotes[q];
+    });
+
+    noteBtn.addEventListener('click', () => {
+      alert('A ideia desta V3 é usar 3D de forma controlada para gerar presença e identidade, sem matar a função comercial da página.');
     });
 
     finalBtn.addEventListener('click', () => {
-      alert('Pronto. Base premium validada. Próximo passo: transformar em projeto de nicho.');
+      alert('Próximo nível: transformar essa base em uma página real de nicho com oferta, CTA e copy específica.');
     });
 
-    function animateText(el, values, interval) {
-      let i = 0;
-      setInterval(() => {
-        i = (i + 1) % values.length;
-        el.textContent = values[i];
-      }, interval);
-    }
-
-    animateText(metricA, ['11s', '14s', '18s', '22s'], 2200);
-    animateText(metricB, ['+42%', '+51%', '+47%', '+58%'], 2600);
+    const statWordsA = ['alto', 'forte', 'marcante'];
+    const statWordsB = ['sim', 'muito', 'demais'];
+    const statWordsC = ['premium', 'viva', 'autoral'];
+    let idx = 0;
+    setInterval(() => {
+      idx = (idx + 1) % statWordsA.length;
+      statA.textContent = statWordsA[idx];
+      statB.textContent = statWordsB[idx];
+      statC.textContent = statWordsC[idx];
+    }, 2200);
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('show');
       });
     }, { threshold: 0.14 });
-
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
     document.querySelectorAll('.faq-item').forEach(item => {
-      item.addEventListener('click', () => {
-        item.classList.toggle('active');
-      });
+      item.addEventListener('click', () => item.classList.toggle('active'));
     });
   </script>
 </body>
