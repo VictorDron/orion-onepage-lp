@@ -3,77 +3,96 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Orion Studio — Landing Page</title>
+  <title>Orion Studio — V2 Premium</title>
   <style>
     :root {
-      --bg: #07111f;
-      --bg-soft: #0d1b2e;
-      --card: rgba(255,255,255,0.08);
-      --line: rgba(255,255,255,0.12);
-      --text: #eef4ff;
-      --muted: #a9b7d0;
+      --bg: #060b14;
+      --bg-2: #0a1220;
+      --surface: rgba(255,255,255,0.06);
+      --surface-2: rgba(255,255,255,0.04);
+      --stroke: rgba(255,255,255,0.09);
+      --text: #f4f8ff;
+      --muted: #97a8c3;
       --primary: #5eead4;
-      --secondary: #60a5fa;
-      --accent: #a78bfa;
-      --shadow: 0 20px 60px rgba(0,0,0,.35);
-      --radius: 24px;
+      --primary-2: #38bdf8;
+      --accent: #8b5cf6;
+      --success: #34d399;
+      --danger: #fb7185;
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --shadow: 0 30px 80px rgba(0,0,0,.35);
+      --container: min(1200px, calc(100% - 32px));
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(96,165,250,.18), transparent 28%),
-        radial-gradient(circle at right, rgba(167,139,250,.15), transparent 22%),
-        linear-gradient(180deg, #07111f 0%, #081221 35%, #0a1526 100%);
       color: var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(56,189,248,.13), transparent 26%),
+        radial-gradient(circle at 85% 15%, rgba(139,92,246,.14), transparent 24%),
+        radial-gradient(circle at 50% 100%, rgba(94,234,212,.08), transparent 28%),
+        linear-gradient(180deg, #060b14 0%, #07111d 28%, #091320 60%, #07111a 100%);
       line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: radial-gradient(circle at center, black 35%, transparent 85%);
+      opacity: .35;
     }
 
     a { color: inherit; text-decoration: none; }
-    .container { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+    .container { width: var(--container); margin: 0 auto; }
 
     .nav {
       position: sticky;
       top: 0;
-      z-index: 20;
-      backdrop-filter: blur(14px);
-      background: rgba(7,17,31,.55);
-      border-bottom: 1px solid rgba(255,255,255,.06);
+      z-index: 30;
+      backdrop-filter: blur(16px);
+      background: rgba(6,11,20,.62);
+      border-bottom: 1px solid rgba(255,255,255,.05);
     }
 
     .nav-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 0;
+      min-height: 78px;
+      gap: 20px;
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: .3px;
     }
 
-    .brand-badge {
-      width: 38px;
-      height: 38px;
+    .brand-mark {
+      width: 42px;
+      height: 42px;
       display: grid;
       place-items: center;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-      color: #07111f;
+      border-radius: 14px;
+      color: #031019;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2), var(--accent));
+      box-shadow: 0 16px 34px rgba(56,189,248,.22);
       font-weight: 900;
-      box-shadow: var(--shadow);
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 22px;
       color: var(--muted);
       font-size: 14px;
     }
@@ -82,63 +101,76 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 14px 20px;
-      border: 0;
+      gap: 10px;
+      border: none;
       border-radius: 999px;
-      font-weight: 700;
+      padding: 14px 22px;
+      font-weight: 800;
       cursor: pointer;
       transition: .25s ease;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: #07111f;
-      box-shadow: 0 12px 30px rgba(96,165,250,.25);
+      color: #041019;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      box-shadow: 0 18px 40px rgba(56,189,248,.22);
     }
 
-    .btn-primary:hover { transform: translateY(-2px) scale(1.01); }
+    .btn-primary:hover,
+    .btn-outline:hover,
+    .mini-btn:hover { transform: translateY(-2px); }
 
-    .btn-ghost {
-      background: rgba(255,255,255,.06);
+    .btn-outline {
+      background: rgba(255,255,255,.05);
       color: var(--text);
-      border: 1px solid var(--line);
+      border: 1px solid var(--stroke);
     }
 
     .hero {
-      padding: 72px 0 40px;
+      padding: 72px 0 42px;
     }
 
-    .hero-grid {
+    .hero-wrap {
       display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 28px;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 30px;
       align-items: center;
     }
 
-    .pill {
+    .eyebrow {
       display: inline-flex;
-      padding: 8px 14px;
-      border: 1px solid rgba(94,234,212,.22);
-      background: rgba(94,234,212,.08);
-      color: var(--primary);
+      align-items: center;
+      gap: 10px;
       border-radius: 999px;
+      padding: 8px 14px;
       margin-bottom: 18px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
+      color: var(--primary);
+      background: rgba(94,234,212,.08);
+      border: 1px solid rgba(94,234,212,.15);
+    }
+
+    .eyebrow .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 14px var(--success);
     }
 
     h1 {
-      font-size: clamp(2.2rem, 5vw, 4.8rem);
-      line-height: 1.02;
-      letter-spacing: -0.04em;
+      font-size: clamp(2.6rem, 5vw, 5.2rem);
+      line-height: .97;
+      letter-spacing: -.05em;
       margin-bottom: 18px;
+      max-width: 11ch;
     }
 
     .lead {
-      color: var(--muted);
-      font-size: clamp(1rem, 1.8vw, 1.18rem);
       max-width: 60ch;
+      font-size: clamp(1rem, 1.7vw, 1.16rem);
+      color: var(--muted);
       margin-bottom: 28px;
     }
 
@@ -146,115 +178,151 @@
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
 
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+    .brand-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: #c9d7ea;
     }
 
-    .stat {
-      padding: 18px;
-      border-radius: 18px;
+    .brand-chip {
+      padding: 10px 14px;
+      border-radius: 999px;
       background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.06);
+      font-size: 13px;
+    }
+
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.035));
       border: 1px solid rgba(255,255,255,.08);
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 1.3rem;
-      margin-bottom: 4px;
-    }
-
-    .visual {
-      position: relative;
-      min-height: 520px;
-    }
-
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: var(--radius);
+      border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
     }
 
-    .dashboard {
+    .hero-panel {
       padding: 22px;
       position: relative;
       overflow: hidden;
     }
 
-    .dashboard::before {
+    .hero-panel::after {
       content: "";
       position: absolute;
-      inset: auto -40px -40px auto;
-      width: 180px;
-      height: 180px;
-      background: radial-gradient(circle, rgba(94,234,212,.35), transparent 60%);
-      filter: blur(12px);
+      width: 220px;
+      height: 220px;
+      right: -40px;
+      top: -40px;
+      background: radial-gradient(circle, rgba(94,234,212,.2), transparent 60%);
+      filter: blur(10px);
+      pointer-events: none;
     }
 
-    .mock-top {
+    .panel-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       color: var(--muted);
       font-size: 14px;
     }
 
-    .dots { display: flex; gap: 6px; }
-    .dots span {
+    .panel-window {
+      display: flex;
+      gap: 7px;
+    }
+
+    .panel-window span {
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: rgba(255,255,255,.25);
+      background: rgba(255,255,255,.24);
     }
 
-    .chart {
-      height: 220px;
-      border-radius: 20px;
-      background:
-        linear-gradient(180deg, rgba(96,165,250,.18), transparent),
-        repeating-linear-gradient(90deg, transparent 0 55px, rgba(255,255,255,.04) 55px 56px),
-        repeating-linear-gradient(180deg, transparent 0 55px, rgba(255,255,255,.04) 55px 56px),
-        rgba(255,255,255,.03);
-      position: relative;
-      overflow: hidden;
+    .hero-card {
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
       margin-bottom: 18px;
     }
 
-    .line {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
+    .hero-card h3 { margin-bottom: 10px; }
+    .hero-card p { color: var(--muted); }
 
-    .mini-grid {
+    .metrics {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 14px;
+      margin-bottom: 16px;
     }
 
-    .mini {
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.08);
+    .metric {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
     }
 
-    .mini span {
+    .metric span {
       display: block;
-      color: var(--muted);
       font-size: 13px;
+      color: var(--muted);
       margin-bottom: 6px;
     }
 
+    .metric strong {
+      font-size: 1.55rem;
+      letter-spacing: -.03em;
+    }
+
+    .pipeline {
+      display: grid;
+      gap: 12px;
+    }
+
+    .pipe {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+
+    .pipe-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+    }
+
+    .pipe-bullet {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: 0 0 16px rgba(94,234,212,.5);
+    }
+
+    .mini-btn {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
     .section {
-      padding: 88px 0;
+      padding: 92px 0;
     }
 
     .section-head {
@@ -264,78 +332,198 @@
     }
 
     .section-head h2 {
-      font-size: clamp(1.8rem, 3vw, 3rem);
+      font-size: clamp(1.9rem, 3vw, 3.3rem);
       margin-bottom: 12px;
+      letter-spacing: -.03em;
     }
 
     .section-head p {
       color: var(--muted);
     }
 
-    .features {
+    .grid-3 {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 20px;
     }
 
-    .feature {
-      padding: 24px;
-    }
-
-    .feature .icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, rgba(94,234,212,.18), rgba(96,165,250,.18));
-      font-size: 22px;
-    }
-
-    .feature h3 { margin-bottom: 10px; }
-    .feature p { color: var(--muted); }
-
-    .showcase {
+    .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
       align-items: stretch;
     }
 
-    .show-text, .show-box { padding: 28px; }
-    .show-text p, .show-box p { color: var(--muted); }
+    .box { padding: 28px; }
 
-    .quote {
+    .service-card .index {
+      display: inline-flex;
+      width: 42px;
+      height: 42px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, rgba(94,234,212,.18), rgba(56,189,248,.18));
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .service-card h3,
+    .box h3,
+    .testimonial h3,
+    .pricing h3 { margin-bottom: 10px; }
+
+    .service-card p,
+    .box p,
+    .testimonial p,
+    .pricing p,
+    .list li,
+    .faq-item p { color: var(--muted); }
+
+    .list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
       margin-top: 18px;
+    }
+
+    .list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .list li::before {
+      content: "•";
+      color: var(--primary);
+      font-size: 1.2rem;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    .testimonial-wrap {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 24px;
+    }
+
+    .testimonial {
+      padding: 30px;
+      position: relative;
+    }
+
+    .quote-mark {
+      font-size: 4.2rem;
+      line-height: 1;
+      color: rgba(94,234,212,.24);
+      margin-bottom: 10px;
+    }
+
+    .author {
+      margin-top: 18px;
+      color: #d7e6fa;
+      font-weight: 700;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .score {
       padding: 18px;
-      border-left: 3px solid var(--primary);
+      border-radius: 18px;
       background: rgba(255,255,255,.04);
-      border-radius: 16px;
-      color: #d8e5fa;
+      border: 1px solid rgba(255,255,255,.06);
+    }
+
+    .score span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .score strong {
+      font-size: 1.6rem;
+    }
+
+    .pricing {
+      padding: 30px;
+    }
+
+    .price-tag {
+      font-size: 2.7rem;
+      line-height: 1;
+      margin: 16px 0;
+      letter-spacing: -.05em;
+    }
+
+    .price-tag small {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .faq {
+      display: grid;
+      gap: 14px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      padding: 22px;
+      cursor: pointer;
+    }
+
+    .faq-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .faq-top strong {
+      font-size: 1rem;
+    }
+
+    .faq-item p {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .28s ease, margin-top .28s ease;
+      margin-top: 0;
+    }
+
+    .faq-item.active p {
+      max-height: 160px;
+      margin-top: 12px;
     }
 
     .cta {
       text-align: center;
-      padding: 36px;
+      padding: 38px;
     }
 
     .cta p {
       color: var(--muted);
+      max-width: 680px;
       margin: 12px auto 22px;
-      max-width: 640px;
     }
 
     .footer {
-      padding: 28px 0 44px;
-      color: var(--muted);
+      padding: 26px 0 42px;
       text-align: center;
+      color: var(--muted);
       font-size: 14px;
     }
 
     .reveal {
       opacity: 0;
-      transform: translateY(24px);
+      transform: translateY(26px);
       transition: opacity .7s ease, transform .7s ease;
     }
 
@@ -344,19 +532,24 @@
       transform: translateY(0);
     }
 
-    @media (max-width: 980px) {
-      .hero-grid,
-      .features,
-      .showcase {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-stats {
+    @media (max-width: 1024px) {
+      .hero-wrap,
+      .grid-3,
+      .grid-2,
+      .testimonial-wrap {
         grid-template-columns: 1fr;
       }
 
       .nav-links a:not(.btn) { display: none; }
-      .visual { min-height: auto; }
+    }
+
+    @media (max-width: 640px) {
+      h1 { max-width: 100%; }
+      .hero-actions,
+      .brand-row { flex-direction: column; align-items: stretch; }
+      .metrics,
+      .score-grid { grid-template-columns: 1fr; }
+      .btn { width: 100%; }
     }
   </style>
 </head>
@@ -364,134 +557,208 @@
   <nav class="nav">
     <div class="container nav-inner">
       <a href="#top" class="brand">
-        <span class="brand-badge">O</span>
+        <span class="brand-mark">O</span>
         <span>Orion Studio</span>
       </a>
       <div class="nav-links">
-        <a href="#features">Recursos</a>
-        <a href="#showcase">Destaques</a>
-        <a href="#cta" class="btn btn-primary">Quero uma página</a>
+        <a href="#services">Serviços</a>
+        <a href="#results">Resultados</a>
+        <a href="#faq">FAQ</a>
+        <a href="#cta" class="btn btn-primary">Quero esse nível</a>
       </div>
     </div>
   </nav>
 
   <main id="top">
     <section class="hero">
-      <div class="container hero-grid">
+      <div class="container hero-wrap">
         <div class="reveal show">
-          <span class="pill">Landing page em arquivo único</span>
-          <h1>Uma página bonita, rápida e pronta para converter.</h1>
+          <span class="eyebrow"><span class="dot"></span> Estrutura premium para páginas de alta percepção</span>
+          <h1>Sites e landing pages com cara de empresa grande.</h1>
           <p class="lead">
-            Projeto single-file com HTML, CSS e JavaScript no mesmo arquivo. Ideal para campanhas,
-            páginas de oferta, apresentação de produto ou validação rápida de ideia.
+            Design elegante, copy mais afiada e composição visual com pegada de software house moderna.
+            Uma V2 mais forte, mais limpa e com presença muito mais profissional.
           </p>
           <div class="hero-actions">
-            <a href="#cta" class="btn btn-primary">Começar agora</a>
-            <a href="#features" class="btn btn-ghost">Ver estrutura</a>
+            <a href="#cta" class="btn btn-primary">Solicitar projeto</a>
+            <a href="#services" class="btn btn-outline">Explorar a estrutura</a>
           </div>
-          <div class="hero-stats">
-            <div class="stat card">
-              <strong>100%</strong>
-              <span>arquivo único</span>
-            </div>
-            <div class="stat card">
-              <strong>Leve</strong>
-              <span>rápida para publicar</span>
-            </div>
-            <div class="stat card">
-              <strong>Responsiva</strong>
-              <span>boa no desktop e mobile</span>
-            </div>
+          <div class="brand-row">
+            <span class="brand-chip">Landing pages premium</span>
+            <span class="brand-chip">Sites institucionais modernos</span>
+            <span class="brand-chip">Páginas para oferta e conversão</span>
           </div>
         </div>
 
-        <div class="visual reveal">
-          <div class="dashboard card">
-            <div class="mock-top">
-              <div class="dots"><span></span><span></span><span></span></div>
-              <span>dashboard preview</span>
+        <div class="hero-panel glass reveal">
+          <div class="panel-head">
+            <div class="panel-window"><span></span><span></span><span></span></div>
+            <span>operation dashboard</span>
+          </div>
+
+          <div class="hero-card">
+            <h3>Interface de alto valor percebido</h3>
+            <p>
+              Blocos bem respirados, boa hierarquia, headline forte e sensação de produto premium já na primeira dobra.
+            </p>
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <span>Tempo médio de atenção</span>
+              <strong id="metricA">11s</strong>
             </div>
-            <div class="chart">
-              <svg class="line" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stop-color="#5eead4" />
-                    <stop offset="100%" stop-color="#60a5fa" />
-                  </linearGradient>
-                </defs>
-                <polyline
-                  fill="none"
-                  stroke="url(#g1)"
-                  stroke-width="3"
-                  points="0,78 10,72 20,75 30,59 40,64 50,47 60,54 70,36 80,25 90,32 100,16"
-                />
-              </svg>
+            <div class="metric">
+              <span>Leads qualificados</span>
+              <strong id="metricB">+42%</strong>
             </div>
-            <div class="mini-grid">
-              <div class="mini">
-                <span>Conversão</span>
-                <strong id="metricA">3.8%</strong>
-              </div>
-              <div class="mini">
-                <span>Leads</span>
-                <strong id="metricB">128</strong>
-              </div>
+          </div>
+
+          <div class="pipeline">
+            <div class="pipe">
+              <div class="pipe-label"><span class="pipe-bullet"></span> Diagnóstico visual</div>
+              <button class="mini-btn">Concluído</button>
+            </div>
+            <div class="pipe">
+              <div class="pipe-label"><span class="pipe-bullet"></span> Copy estratégica</div>
+              <button class="mini-btn">Ativo</button>
+            </div>
+            <div class="pipe">
+              <div class="pipe-label"><span class="pipe-bullet"></span> Estrutura de conversão</div>
+              <button class="mini-btn">Pronto</button>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="features" class="section">
+    <section id="services" class="section">
       <div class="container">
         <div class="section-head reveal">
-          <h2>Feita para impressionar sem complicar</h2>
+          <h2>Uma página mais séria, mais limpa e mais convincente</h2>
           <p>
-            Uma LP enxuta, elegante e fácil de publicar no GitHub Pages, Vercel, Netlify ou em qualquer hospedagem estática.
+            Inspirada no tipo de presença visual que passa confiança logo de cara, sem virar cópia literal de ninguém.
           </p>
         </div>
 
-        <div class="features">
-          <article class="feature card reveal">
-            <div class="icon">⚡</div>
-            <h3>Rápida de publicar</h3>
-            <p>Um único arquivo facilita deploy, manutenção e testes rápidos de campanha.</p>
+        <div class="grid-3">
+          <article class="box glass service-card reveal">
+            <span class="index">01</span>
+            <h3>Hero mais impactante</h3>
+            <p>Headline maior, melhor distribuição visual e call to action com mais presença.</p>
           </article>
-          <article class="feature card reveal">
-            <div class="icon">🎯</div>
-            <h3>Visual comercial</h3>
-            <p>Estrutura pensada para destacar proposta de valor, CTA e credibilidade.</p>
+          <article class="box glass service-card reveal">
+            <span class="index">02</span>
+            <h3>Blocos com cara premium</h3>
+            <p>Cards translúcidos, respiro melhor e composição mais corporativa e moderna.</p>
           </article>
-          <article class="feature card reveal">
-            <div class="icon">🧠</div>
-            <h3>JavaScript sutil</h3>
-            <p>Animações leves e interações simples para dar sensação de produto premium.</p>
+          <article class="box glass service-card reveal">
+            <span class="index">03</span>
+            <h3>Interação sutil</h3>
+            <p>Pequenos efeitos e dinâmicas para deixar a experiência mais viva sem exagero.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="showcase" class="section">
-      <div class="container showcase">
-        <div class="show-text card reveal">
-          <h2>Boa para validar oferta rápido</h2>
+    <section id="results" class="section">
+      <div class="container grid-2">
+        <div class="box glass reveal">
+          <h3>O que essa V2 melhora</h3>
           <p>
-            Se você quer lançar uma ideia, testar copy, apresentar serviço ou montar um MVP visual,
-            uma single-file LP resolve muito bem sem depender de stack complexa.
+            Ela sai de uma LP “bonita” para uma LP com mais aparência de projeto comercial sério. O ganho está menos no efeito e mais na percepção de valor.
           </p>
-          <div class="quote" id="quoteBox">
-            “Simplicidade bem feita passa mais confiança do que excesso de firula.”
+          <ul class="list">
+            <li>Mais autoridade na primeira impressão</li>
+            <li>Melhor equilíbrio entre visual e copy</li>
+            <li>Cara de solução premium, não de template comum</li>
+            <li>Mais fácil de adaptar para software house, agência, SaaS ou consultoria</li>
+          </ul>
+        </div>
+        <div class="box glass reveal">
+          <h3>Ideal para</h3>
+          <p>
+            Empresas que querem se posicionar melhor no digital, vender serviço com mais confiança e parecer mais organizadas sem precisar de uma aplicação inteira.
+          </p>
+          <ul class="list">
+            <li>Software house</li>
+            <li>Agência criativa ou performance</li>
+            <li>Consultoria tech</li>
+            <li>Produto digital / SaaS</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container testimonial-wrap">
+        <div class="testimonial glass reveal">
+          <div class="quote-mark">“</div>
+          <h3 id="quoteTitle">Percepção de valor vem do conjunto</h3>
+          <p id="quoteText">
+            Não é só usar gradiente bonito. O que faz uma página parecer forte é a soma entre direção visual, copy boa, hierarquia clara e sensação de organização.
+          </p>
+          <div class="author" id="quoteAuthor">Orion Studio • direção criativa</div>
+          <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+            <button class="btn btn-primary" id="changeQuote">Trocar insight</button>
+            <button class="btn btn-outline" id="alertBtn">Ver observação</button>
           </div>
         </div>
-        <div class="show-box card reveal">
-          <h2>O que pode entrar aqui</h2>
-          <p>
-            Headline forte, benefícios, prova social, FAQ, CTA, botão para WhatsApp, formulário simples,
-            link de checkout, vídeo embed e até pequenos blocos interativos.
-          </p>
-          <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
-            <button class="btn btn-primary" id="swapButton">Trocar destaque</button>
-            <a class="btn btn-ghost" href="#cta">Ver CTA final</a>
+
+        <div class="pricing glass reveal">
+          <h3>Pack de entrega</h3>
+          <p>Um exemplo de como você pode empacotar esse tipo de projeto.</p>
+          <div class="price-tag">Single File <small>HTML + CSS + JS</small></div>
+          <div class="score-grid">
+            <div class="score">
+              <span>Publicação</span>
+              <strong>rápida</strong>
+            </div>
+            <div class="score">
+              <span>Visual</span>
+              <strong>premium</strong>
+            </div>
+            <div class="score">
+              <span>Estrutura</span>
+              <strong>modular</strong>
+            </div>
+            <div class="score">
+              <span>Manutenção</span>
+              <strong>simples</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Perguntas que costumam aparecer</h2>
+          <p>Uma LP boa também ajuda a responder objeções com clareza.</p>
+        </div>
+
+        <div class="faq">
+          <div class="faq-item glass reveal active">
+            <div class="faq-top">
+              <strong>Essa página pode virar projeto real para cliente?</strong>
+              <span>+</span>
+            </div>
+            <p>Sim. A estrutura está pronta para ser adaptada para agência, software house, consultoria, produto digital ou página de oferta.</p>
+          </div>
+          <div class="faq-item glass reveal">
+            <div class="faq-top">
+              <strong>Dá para publicar fácil?</strong>
+              <span>+</span>
+            </div>
+            <p>Dá. Por ser um arquivo único, é muito simples publicar em GitHub Pages, Netlify, Vercel ou hospedagem estática comum.</p>
+          </div>
+          <div class="faq-item glass reveal">
+            <div class="faq-top">
+              <strong>Posso incluir WhatsApp, formulário e CTA real?</strong>
+              <span>+</span>
+            </div>
+            <p>Sim. Essa base foi pensada justamente para receber CTA real, link de WhatsApp, formulário e integrações simples depois.</p>
           </div>
         </div>
       </div>
@@ -499,61 +766,76 @@
 
     <section id="cta" class="section">
       <div class="container">
-        <div class="cta card reveal">
-          <h2>Quer uma página nesse nível para o seu negócio?</h2>
+        <div class="cta glass reveal">
+          <h2>Se quiser, eu ainda deixo essa V2 mais agressiva para conversão.</h2>
           <p>
-            Posso transformar uma ideia, produto ou serviço em uma landing page bonita, objetiva e pronta para publicação.
+            Dá para transformar isso numa LP para agência, produto, software house, barbearia premium, clínica, SaaS ou captação de leads com WhatsApp.
           </p>
-          <a href="javascript:void(0)" class="btn btn-primary" id="ctaButton">Quero tirar do papel</a>
+          <a href="javascript:void(0)" class="btn btn-primary" id="finalBtn">Quero a V3</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">
-      Criado em arquivo único com HTML, CSS e JS • Orion Studio
-    </div>
+    <div class="container">Orion Studio • V2 premium single-file • pronta para GitHub Pages</div>
   </footer>
 
   <script>
     const metricA = document.getElementById('metricA');
     const metricB = document.getElementById('metricB');
-    const quoteBox = document.getElementById('quoteBox');
-    const swapButton = document.getElementById('swapButton');
-    const ctaButton = document.getElementById('ctaButton');
+    const quoteTitle = document.getElementById('quoteTitle');
+    const quoteText = document.getElementById('quoteText');
+    const quoteAuthor = document.getElementById('quoteAuthor');
+    const changeQuote = document.getElementById('changeQuote');
+    const alertBtn = document.getElementById('alertBtn');
+    const finalBtn = document.getElementById('finalBtn');
 
-    const quotes = [
-      '“Simplicidade bem feita passa mais confiança do que excesso de firula.”',
-      '“Uma oferta clara numa página boa vende mais do que um layout confuso.”',
-      '“Velocidade, clareza e apelo visual: a tríade da landing page honesta.”'
+    const insights = [
+      {
+        title: 'Percepção de valor vem do conjunto',
+        text: 'Não é só usar gradiente bonito. O que faz uma página parecer forte é a soma entre direção visual, copy boa, hierarquia clara e sensação de organização.',
+        author: 'Orion Studio • direção criativa'
+      },
+      {
+        title: 'Autoridade visual reduz fricção',
+        text: 'Quando a página passa profissionalismo logo de cara, o visitante perde menos tempo tentando decidir se confia ou não em quem está por trás.',
+        author: 'Orion Studio • leitura de conversão'
+      },
+      {
+        title: 'Página premium vende contexto',
+        text: 'Ela não empurra só uma oferta. Ela vende a sensação de estrutura, competência e nível de execução por trás daquela marca.',
+        author: 'Orion Studio • composição estratégica'
+      }
     ];
 
-    let quoteIndex = 0;
-
-    swapButton.addEventListener('click', () => {
-      quoteIndex = (quoteIndex + 1) % quotes.length;
-      quoteBox.textContent = quotes[quoteIndex];
+    let insightIndex = 0;
+    changeQuote.addEventListener('click', () => {
+      insightIndex = (insightIndex + 1) % insights.length;
+      const next = insights[insightIndex];
+      quoteTitle.textContent = next.title;
+      quoteText.textContent = next.text;
+      quoteAuthor.textContent = next.author;
     });
 
-    ctaButton.addEventListener('click', () => {
-      alert('Landing page pronta para virar projeto real.');
+    alertBtn.addEventListener('click', () => {
+      alert('Essa V2 foi redesenhada para ficar mais premium e mais próxima da sensação visual de uma software house moderna, sem copiar literalmente outra página.');
     });
 
-    function animateValue(el, start, end, suffix = '', duration = 1200) {
-      const range = end - start;
-      const startTime = performance.now();
-      function update(now) {
-        const progress = Math.min((now - startTime) / duration, 1);
-        const value = start + range * progress;
-        el.textContent = (suffix === '%' ? value.toFixed(1) : Math.round(value)) + suffix;
-        if (progress < 1) requestAnimationFrame(update);
-      }
-      requestAnimationFrame(update);
+    finalBtn.addEventListener('click', () => {
+      alert('Pronto. Base premium validada. Próximo passo: transformar em projeto de nicho.');
+    });
+
+    function animateText(el, values, interval) {
+      let i = 0;
+      setInterval(() => {
+        i = (i + 1) % values.length;
+        el.textContent = values[i];
+      }, interval);
     }
 
-    animateValue(metricA, 1.2, 3.8, '%');
-    animateValue(metricB, 30, 128, '');
+    animateText(metricA, ['11s', '14s', '18s', '22s'], 2200);
+    animateText(metricB, ['+42%', '+51%', '+47%', '+58%'], 2600);
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -562,6 +844,12 @@
     }, { threshold: 0.14 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
   </script>
 </body>
 </html>
