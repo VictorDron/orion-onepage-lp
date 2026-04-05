@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orion Studio — Landing Page</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-soft: #0d1b2e;
+      --card: rgba(255,255,255,0.08);
+      --line: rgba(255,255,255,0.12);
+      --text: #eef4ff;
+      --muted: #a9b7d0;
+      --primary: #5eead4;
+      --secondary: #60a5fa;
+      --accent: #a78bfa;
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(96,165,250,.18), transparent 28%),
+        radial-gradient(circle at right, rgba(167,139,250,.15), transparent 22%),
+        linear-gradient(180deg, #07111f 0%, #081221 35%, #0a1526 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(7,17,31,.55);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: .3px;
+    }
+
+    .brand-badge {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      color: #07111f;
+      font-weight: 900;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 20px;
+      border: 0;
+      border-radius: 999px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .25s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #07111f;
+      box-shadow: 0 12px 30px rgba(96,165,250,.25);
+    }
+
+    .btn-primary:hover { transform: translateY(-2px) scale(1.01); }
+
+    .btn-ghost {
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .hero {
+      padding: 72px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      padding: 8px 14px;
+      border: 1px solid rgba(94,234,212,.22);
+      background: rgba(94,234,212,.08);
+      color: var(--primary);
+      border-radius: 999px;
+      margin-bottom: 18px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 4.8rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      margin-bottom: 18px;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: clamp(1rem, 1.8vw, 1.18rem);
+      max-width: 60ch;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.3rem;
+      margin-bottom: 4px;
+    }
+
+    .visual {
+      position: relative;
+      min-height: 520px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .dashboard {
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dashboard::before {
+      content: "";
+      position: absolute;
+      inset: auto -40px -40px auto;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(94,234,212,.35), transparent 60%);
+      filter: blur(12px);
+    }
+
+    .mock-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .dots { display: flex; gap: 6px; }
+    .dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.25);
+    }
+
+    .chart {
+      height: 220px;
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, rgba(96,165,250,.18), transparent),
+        repeating-linear-gradient(90deg, transparent 0 55px, rgba(255,255,255,.04) 55px 56px),
+        repeating-linear-gradient(180deg, transparent 0 55px, rgba(255,255,255,.04) 55px 56px),
+        rgba(255,255,255,.03);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .line {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .mini {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .mini span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .section {
+      padding: 88px 0;
+    }
+
+    .section-head {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 42px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.8rem, 3vw, 3rem);
+      margin-bottom: 12px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature {
+      padding: 24px;
+    }
+
+    .feature .icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, rgba(94,234,212,.18), rgba(96,165,250,.18));
+      font-size: 22px;
+    }
+
+    .feature h3 { margin-bottom: 10px; }
+    .feature p { color: var(--muted); }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .show-text, .show-box { padding: 28px; }
+    .show-text p, .show-box p { color: var(--muted); }
+
+    .quote {
+      margin-top: 18px;
+      padding: 18px;
+      border-left: 3px solid var(--primary);
+      background: rgba(255,255,255,.04);
+      border-radius: 16px;
+      color: #d8e5fa;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 36px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      margin: 12px auto 22px;
+      max-width: 640px;
+    }
+
+    .footer {
+      padding: 28px 0 44px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .features,
+      .showcase {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links a:not(.btn) { display: none; }
+      .visual { min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="brand">
+        <span class="brand-badge">O</span>
+        <span>Orion Studio</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Recursos</a>
+        <a href="#showcase">Destaques</a>
+        <a href="#cta" class="btn btn-primary">Quero uma página</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal show">
+          <span class="pill">Landing page em arquivo único</span>
+          <h1>Uma página bonita, rápida e pronta para converter.</h1>
+          <p class="lead">
+            Projeto single-file com HTML, CSS e JavaScript no mesmo arquivo. Ideal para campanhas,
+            páginas de oferta, apresentação de produto ou validação rápida de ideia.
+          </p>
+          <div class="hero-actions">
+            <a href="#cta" class="btn btn-primary">Começar agora</a>
+            <a href="#features" class="btn btn-ghost">Ver estrutura</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat card">
+              <strong>100%</strong>
+              <span>arquivo único</span>
+            </div>
+            <div class="stat card">
+              <strong>Leve</strong>
+              <span>rápida para publicar</span>
+            </div>
+            <div class="stat card">
+              <strong>Responsiva</strong>
+              <span>boa no desktop e mobile</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="visual reveal">
+          <div class="dashboard card">
+            <div class="mock-top">
+              <div class="dots"><span></span><span></span><span></span></div>
+              <span>dashboard preview</span>
+            </div>
+            <div class="chart">
+              <svg class="line" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#5eead4" />
+                    <stop offset="100%" stop-color="#60a5fa" />
+                  </linearGradient>
+                </defs>
+                <polyline
+                  fill="none"
+                  stroke="url(#g1)"
+                  stroke-width="3"
+                  points="0,78 10,72 20,75 30,59 40,64 50,47 60,54 70,36 80,25 90,32 100,16"
+                />
+              </svg>
+            </div>
+            <div class="mini-grid">
+              <div class="mini">
+                <span>Conversão</span>
+                <strong id="metricA">3.8%</strong>
+              </div>
+              <div class="mini">
+                <span>Leads</span>
+                <strong id="metricB">128</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Feita para impressionar sem complicar</h2>
+          <p>
+            Uma LP enxuta, elegante e fácil de publicar no GitHub Pages, Vercel, Netlify ou em qualquer hospedagem estática.
+          </p>
+        </div>
+
+        <div class="features">
+          <article class="feature card reveal">
+            <div class="icon">⚡</div>
+            <h3>Rápida de publicar</h3>
+            <p>Um único arquivo facilita deploy, manutenção e testes rápidos de campanha.</p>
+          </article>
+          <article class="feature card reveal">
+            <div class="icon">🎯</div>
+            <h3>Visual comercial</h3>
+            <p>Estrutura pensada para destacar proposta de valor, CTA e credibilidade.</p>
+          </article>
+          <article class="feature card reveal">
+            <div class="icon">🧠</div>
+            <h3>JavaScript sutil</h3>
+            <p>Animações leves e interações simples para dar sensação de produto premium.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="showcase" class="section">
+      <div class="container showcase">
+        <div class="show-text card reveal">
+          <h2>Boa para validar oferta rápido</h2>
+          <p>
+            Se você quer lançar uma ideia, testar copy, apresentar serviço ou montar um MVP visual,
+            uma single-file LP resolve muito bem sem depender de stack complexa.
+          </p>
+          <div class="quote" id="quoteBox">
+            “Simplicidade bem feita passa mais confiança do que excesso de firula.”
+          </div>
+        </div>
+        <div class="show-box card reveal">
+          <h2>O que pode entrar aqui</h2>
+          <p>
+            Headline forte, benefícios, prova social, FAQ, CTA, botão para WhatsApp, formulário simples,
+            link de checkout, vídeo embed e até pequenos blocos interativos.
+          </p>
+          <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+            <button class="btn btn-primary" id="swapButton">Trocar destaque</button>
+            <a class="btn btn-ghost" href="#cta">Ver CTA final</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cta" class="section">
+      <div class="container">
+        <div class="cta card reveal">
+          <h2>Quer uma página nesse nível para o seu negócio?</h2>
+          <p>
+            Posso transformar uma ideia, produto ou serviço em uma landing page bonita, objetiva e pronta para publicação.
+          </p>
+          <a href="javascript:void(0)" class="btn btn-primary" id="ctaButton">Quero tirar do papel</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      Criado em arquivo único com HTML, CSS e JS • Orion Studio
+    </div>
+  </footer>
+
+  <script>
+    const metricA = document.getElementById('metricA');
+    const metricB = document.getElementById('metricB');
+    const quoteBox = document.getElementById('quoteBox');
+    const swapButton = document.getElementById('swapButton');
+    const ctaButton = document.getElementById('ctaButton');
+
+    const quotes = [
+      '“Simplicidade bem feita passa mais confiança do que excesso de firula.”',
+      '“Uma oferta clara numa página boa vende mais do que um layout confuso.”',
+      '“Velocidade, clareza e apelo visual: a tríade da landing page honesta.”'
+    ];
+
+    let quoteIndex = 0;
+
+    swapButton.addEventListener('click', () => {
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      quoteBox.textContent = quotes[quoteIndex];
+    });
+
+    ctaButton.addEventListener('click', () => {
+      alert('Landing page pronta para virar projeto real.');
+    });
+
+    function animateValue(el, start, end, suffix = '', duration = 1200) {
+      const range = end - start;
+      const startTime = performance.now();
+      function update(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const value = start + range * progress;
+        el.textContent = (suffix === '%' ? value.toFixed(1) : Math.round(value)) + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    animateValue(metricA, 1.2, 3.8, '%');
+    animateValue(metricB, 30, 128, '');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.14 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
